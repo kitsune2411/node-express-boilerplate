@@ -18,6 +18,7 @@ const swaggerUi = require('swagger-ui-express');
 const { shutdown } = require('../lib/shutdown');
 const router = require('./routes/index.routes');
 const swaggerSpec = require('./docs/swagger');
+const { notFoundHandler, errorHandler } = require('./middlewares/errorHandlers');
 
 const PORT = process.env.PORT || 3000;
 
@@ -49,18 +50,10 @@ app.use('/api-docs', swaggerUi.serve, (req, res, next) => {
 app.use('/api', router);
 
 // 404 handler
-app.use((req, res) => {
-  res.status(404).json({ error: 'Not found' });
-});
+app.use(notFoundHandler);
 
 // Error handler
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  // eslint-disable-next-line no-console
-  console.error('Unhandled error:', err);
-  const status = err.status || 500;
-  res.status(status).json({ error: 'Internal server error' });
-});
+app.use(errorHandler);
 
 // Create HTTP server
 const server = http.createServer(app);

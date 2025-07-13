@@ -10,7 +10,7 @@ const options = {
       description: pkg.description || 'API documentation',
     },
   },
-  apis: ['./src/routes/*.js'],
+  apis: ['./src/routes/*.js', './src/docs/components.yml'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

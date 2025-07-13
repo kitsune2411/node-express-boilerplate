@@ -21,19 +21,13 @@ const ExampleController = require('../controllers/exampleController');
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
+ *               $ref: '#/components/schemas/ApiResponseSuccess'
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
+ *               $ref: '#/components/schemas/ApiResponseError'
  */
 router.get('/hello', asyncHandler(ExampleController.sayHello));
 
@@ -56,10 +50,13 @@ router.get('/hello', asyncHandler(ExampleController.sayHello));
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
+ *               $ref: '#/components/schemas/ApiResponseSuccess'
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiResponseError'
  */
 router.get('/greet/:name', asyncHandler(ExampleController.greet));
 
@@ -82,28 +79,19 @@ router.get('/greet/:name', asyncHandler(ExampleController.greet));
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
+ *               $ref: '#/components/schemas/ApiResponseSuccess'
  *       400:
  *         description: Intentional error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
+ *               $ref: '#/components/schemas/ApiResponseError'
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
+ *               $ref: '#/components/schemas/ApiResponseError'
  */
 router.get('/simulate-error', asyncHandler(ExampleController.errorIfTrue));
 

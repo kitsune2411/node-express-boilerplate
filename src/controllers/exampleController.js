@@ -1,3 +1,5 @@
+const { success } = require('../utils/apiResponse');
+
 /**
  * ExampleController class for handling example routes.
  */
@@ -8,7 +10,7 @@ class ExampleController {
    * @param {import('express').Response} res
    */
   static async sayHello(req, res) {
-    res.json({ message: 'Hello from ExampleController!' });
+    return success(res, null, 'Hello from ExampleController!');
   }
 
   /**
@@ -18,7 +20,7 @@ class ExampleController {
    */
   static async greet(req, res) {
     const { name } = req.params;
-    res.json({ message: `Hello, ${name}!` });
+    return success(res, null, `Hello, ${name}!`);
   }
 
   /**
@@ -37,7 +39,7 @@ class ExampleController {
       throw error; // This will be caught by asyncHandler and passed to the error handler
     }
 
-    res.json({ message: 'No error thrown.' });
+    return success(res, null, 'No error thrown.');
   }
 }
 
