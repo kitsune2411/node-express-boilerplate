@@ -1,7 +1,9 @@
 {
-  "name": "nodejs",
+  "name": "node-express-boilerplate",
   "version": "1.0.0",
+  "description": "A production-ready Express.js 5 boilerplate with security, error handling, Swagger docs, database utilities, JWT, and standardized API responses.",
   "main": "src/index.js",
+  "type": "commonjs",
   "directories": {
     "lib": "lib",
     "test": "test"
@@ -14,10 +16,31 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "express",
+    "boilerplate",
+    "swagger",
+    "api",
+    "nodejs",
+    "mysql",
+    "postgresql",
+    "jwt",
+    "eslint",
+    "prettier"
+  ],
+  "author": "Agung Kristiawan <agungkristiawan24@gmail.com>",
   "license": "ISC",
-  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kitsune2411/node-express-boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kitsune2411/node-express-boilerplate/issues"
+  },
+  "homepage": "https://github.com/kitsune2411/node-express-boilerplate#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
