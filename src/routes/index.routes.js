@@ -17,6 +17,15 @@ const asyncHandler = require('../utils/asyncHandler');
  *               properties:
  *                 message:
  *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
  */
 router.get(
   '/',

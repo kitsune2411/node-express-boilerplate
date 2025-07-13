@@ -25,6 +25,15 @@ const ExampleController = require('../controllers/exampleController');
  *               properties:
  *                 message:
  *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
  */
 router.get('/hello', asyncHandler(ExampleController.sayHello));
 
@@ -79,6 +88,15 @@ router.get('/greet/:name', asyncHandler(ExampleController.greet));
  *                   type: string
  *       400:
  *         description: Intentional error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:

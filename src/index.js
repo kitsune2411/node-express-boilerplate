@@ -58,7 +58,8 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   // eslint-disable-next-line no-console
   console.error('Unhandled error:', err);
-  res.status(500).json({ error: 'Internal server error' });
+  const status = err.status || 500;
+  res.status(status).json({ error: 'Internal server error' });
 });
 
 // Create HTTP server
