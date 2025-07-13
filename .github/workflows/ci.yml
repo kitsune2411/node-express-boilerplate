@@ -36,6 +36,5 @@ jobs:
       - name: Run ESLint
         run: npx eslint .
 
-      # Uncomment if you have tests
-      # - name: Run tests
-      #   run: npm test
+      - name: Run tests
+        run: npm test

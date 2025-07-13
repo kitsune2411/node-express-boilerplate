@@ -1,27 +1,30 @@
 /**
- * Production-ready Express server bootstrap.
+ * Express application instance.
+ *
  * Features:
  * - Helmet for security headers
  * - Compression for responses
  * - CORS enabled
- * - JSON body parsing
- * - Graceful shutdown
- * - Error handling
+ * - JSON and URL-encoded body parsing
+ * - Swagger UI for API documentation
+ * - Centralized error and 404 handling
+ *
+ * @module app
  */
 
 const express = require('express');
 const helmet = require('helmet');
 const compression = require('compression');
 const cors = require('cors');
-const http = require('http');
 const swaggerUi = require('swagger-ui-express');
-const { shutdown } = require('../lib/shutdown');
 const router = require('./routes/index.routes');
 const swaggerSpec = require('./docs/swagger');
 const { notFoundHandler, errorHandler } = require('./middlewares/errorHandlers');
 
-const PORT = process.env.PORT || 3000;
-
+/**
+ * The Express application.
+ * @type {import('express').Express}
+ */
 const app = express();
 
 // Security headers
@@ -39,14 +42,18 @@ app.use(express.json());
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
 
-// Serve Swagger UI with dynamic server URL
+/**
+ * Serve Swagger UI with dynamic server URL.
+ * @name /api-docs
+ * @function
+ */
 app.use('/api-docs', swaggerUi.serve, (req, res, next) => {
   const spec = JSON.parse(JSON.stringify(swaggerSpec));
   spec.servers = [{ url: `${req.protocol}://${req.get('host')}` }];
   swaggerUi.setup(spec)(req, res, next);
 });
 
-// Routes
+// API routes
 app.use('/api', router);
 
 // 404 handler
@@ -55,33 +62,4 @@ app.use(notFoundHandler);
 // Error handler
 app.use(errorHandler);
 
-// Create HTTP server
-const server = http.createServer(app);
-
-// Start server
-server.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server running on port ${PORT}`);
-});
-
-// Graceful shutdown on SIGINT/SIGTERM
-process.on('SIGINT', () => {
-  // eslint-disable-next-line no-console
-  console.log('Received SIGINT. Initiating shutdown...');
-  shutdown(server);
-});
-process.on('SIGTERM', () => {
-  // eslint-disable-next-line no-console
-  console.log('Received SIGTERM. Initiating shutdown...');
-  shutdown(server);
-});
-process.on('uncaughtException', (err) => {
-  // eslint-disable-next-line no-console
-  console.error('Uncaught Exception:', err);
-  shutdown(server, err);
-});
-process.on('unhandledRejection', (reason) => {
-  // eslint-disable-next-line no-console
-  console.error('Unhandled Rejection:', reason);
-  shutdown(server, reason instanceof Error ? reason : new Error(String(reason)));
-});
+module.exports = app;
