@@ -33,6 +33,7 @@ server.listen(PORT, () => {
  * @event SIGINT
  */
 process.on('SIGINT', () => {
+  // eslint-disable-next-line no-console
   console.log('Received SIGINT. Initiating shutdown...');
   shutdown(server);
 });
@@ -42,6 +43,7 @@ process.on('SIGINT', () => {
  * @event SIGTERM
  */
 process.on('SIGTERM', () => {
+  // eslint-disable-next-line no-console
   console.log('Received SIGTERM. Initiating shutdown...');
   shutdown(server);
 });
@@ -51,6 +53,7 @@ process.on('SIGTERM', () => {
  * @event uncaughtException
  */
 process.on('uncaughtException', (err) => {
+  // eslint-disable-next-line no-console
   console.error('Uncaught Exception:', err);
   shutdown(server, err);
 });
@@ -60,6 +63,7 @@ process.on('uncaughtException', (err) => {
  * @event unhandledRejection
  */
 process.on('unhandledRejection', (reason) => {
+  // eslint-disable-next-line no-console
   console.error('Unhandled Rejection:', reason);
   shutdown(server, reason instanceof Error ? reason : new Error(String(reason)));
 });
