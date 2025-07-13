@@ -25,15 +25,15 @@ function success(res, data = null, message = 'OK', code = 200) {
 /**
  * Send a standardized error response.
  * @param {import('express').Response} res
- * @param {string} error - Error message.
+ * @param {string} errorMessage - Error message.
  * @param {number} [code=500] - HTTP status code.
  * @param {any} [data=null] - Optional error data.
  * @returns {import('express').Response}
  */
-function error(res, error, code = 500, data = null) {
+function error(res, errorMessage, code = 500, data = null) {
   return res.status(code).json({
     success: false,
-    error,
+    error: errorMessage,
     code,
     data,
   });

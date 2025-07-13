@@ -24,9 +24,7 @@ const { success } = require('../utils/apiResponse');
  */
 router.get(
   '/',
-  asyncHandler(async (req, res) => {
-    return success(res, null, 'Welcome to the API!');
-  })
+  asyncHandler(async (req, res) => success(res, null, 'Welcome to the API!'))
 );
 
 router.use('/example', require('./example.routes'));
