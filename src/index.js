@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Production-ready Express server bootstrap.
  * Features:
@@ -16,9 +14,9 @@ const helmet = require('helmet');
 const compression = require('compression');
 const cors = require('cors');
 const http = require('http');
+const swaggerUi = require('swagger-ui-express');
 const { shutdown } = require('../lib/shutdown');
 const router = require('./routes/index.routes');
-const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./docs/swagger');
 
 const PORT = process.env.PORT || 3000;
@@ -51,13 +49,14 @@ app.use('/api-docs', swaggerUi.serve, (req, res, next) => {
 app.use('/api', router);
 
 // 404 handler
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).json({ error: 'Not found' });
 });
 
 // Error handler
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  // Log full error, but don't expose stack to client
+  // eslint-disable-next-line no-console
   console.error('Unhandled error:', err);
   res.status(500).json({ error: 'Internal server error' });
 });
@@ -67,23 +66,28 @@ const server = http.createServer(app);
 
 // Start server
 server.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`Server running on port ${PORT}`);
 });
 
 // Graceful shutdown on SIGINT/SIGTERM
 process.on('SIGINT', () => {
+  // eslint-disable-next-line no-console
   console.log('Received SIGINT. Initiating shutdown...');
   shutdown(server);
 });
 process.on('SIGTERM', () => {
+  // eslint-disable-next-line no-console
   console.log('Received SIGTERM. Initiating shutdown...');
   shutdown(server);
 });
 process.on('uncaughtException', (err) => {
+  // eslint-disable-next-line no-console
   console.error('Uncaught Exception:', err);
   shutdown(server, err);
 });
 process.on('unhandledRejection', (reason) => {
+  // eslint-disable-next-line no-console
   console.error('Unhandled Rejection:', reason);
   shutdown(server, reason instanceof Error ? reason : new Error(String(reason)));
 });

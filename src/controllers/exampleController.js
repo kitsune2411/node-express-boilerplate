@@ -7,7 +7,7 @@ class ExampleController {
    * @param {import('express').Request} req
    * @param {import('express').Response} res
    */
-  async sayHello(req, res) {
+  static async sayHello(req, res) {
     res.json({ message: 'Hello from ExampleController!' });
   }
 
@@ -16,7 +16,7 @@ class ExampleController {
    * @param {import('express').Request} req
    * @param {import('express').Response} res
    */
-  async greet(req, res) {
+  static async greet(req, res) {
     const { name } = req.params;
     res.json({ message: `Hello, ${name}!` });
   }
@@ -28,7 +28,7 @@ class ExampleController {
    * @param {import('express').Response} res
    * @param {import('express').NextFunction} next
    */
-  async errorIfTrue(req, res) {
+  static async errorIfTrue(req, res) {
     const { fail } = req.query;
     if (fail === 'true') {
       const error = new Error("Intentional error triggered by 'fail' query param.");
@@ -41,4 +41,4 @@ class ExampleController {
   }
 }
 
-module.exports = new ExampleController();
+module.exports = ExampleController;

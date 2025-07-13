@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const asyncHandler = require('../utils/asyncHandler');
-const exampleController = require('../controllers/exampleController');
+const ExampleController = require('../controllers/exampleController');
 
 /**
  * @swagger
@@ -26,7 +26,7 @@ const exampleController = require('../controllers/exampleController');
  *                 message:
  *                   type: string
  */
-router.get('/hello', asyncHandler(exampleController.sayHello));
+router.get('/hello', asyncHandler(ExampleController.sayHello));
 
 /**
  * @swagger
@@ -52,7 +52,7 @@ router.get('/hello', asyncHandler(exampleController.sayHello));
  *                 message:
  *                   type: string
  */
-router.get('/greet/:name', asyncHandler(exampleController.greet));
+router.get('/greet/:name', asyncHandler(ExampleController.greet));
 
 /**
  * @swagger
@@ -87,6 +87,6 @@ router.get('/greet/:name', asyncHandler(exampleController.greet));
  *                 error:
  *                   type: string
  */
-router.get('/simulate-error', asyncHandler(exampleController.errorIfTrue));
+router.get('/simulate-error', asyncHandler(ExampleController.errorIfTrue));
 
 module.exports = router;
